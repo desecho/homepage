@@ -1,5 +1,7 @@
 # Desecho.org
 
+Uses [Bootstrap 4](https://getbootstrap.com/)
+
 ## Image sources
 * [Telegram](https://telegram.org/)
 * [Instagram](https://en.facebookbrand.com/instagram/assets/instagram)
