@@ -1,6 +1,8 @@
-# Desecho.org
+# Homepage
 
 Uses [Bootstrap 4](https://getbootstrap.com/).
+
+Webiste is live at [https://desecho.org](https://desecho.org)
 
 Run `make help` to get a list of all available commands.
 
