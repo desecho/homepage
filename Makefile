@@ -50,15 +50,15 @@ help:
 .PHONY: docker-build
 ## Run docker-build | Docker
 docker-build:
-	docker build -t desecho.org .
+	docker build -t homepage .
 
 .PHONY: docker-run
 ## Run docker-run
 docker-run:
-	docker run -p 8000:80 desecho.org
+	docker run -p 8000:80 homepage
 
 .PHONY: docker-sh
 ## Run docker shell
 docker-sh:
-	docker run -ti desecho.org sh
+	docker run -ti homepage sh
 #------------------------------------
