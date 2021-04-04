@@ -18,8 +18,6 @@ li {
     line-height: 75px;
 }
 
-@media screen and (min-width: 1400px) {
-    .container {
-        width: 1700px;
-    }
+.container, .container-lg, .container-md, .container-sm, .container-xl {
+	max-width: 1360px;
 }
