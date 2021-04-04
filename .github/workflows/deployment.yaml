@@ -39,5 +39,5 @@ jobs:
           kubectl apply -f deployment/deployment.yaml
           kubectl apply -f deployment/ingress.yaml
           kubectl apply -f deployment/service.yaml
-          kubectl rollout restart deployment/desecho.org
-          kubectl rollout status deployment/desecho.org
+          kubectl rollout restart deployment/homepage
+          kubectl rollout status deployment/homepage
