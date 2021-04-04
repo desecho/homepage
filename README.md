@@ -1,6 +1,12 @@
 # Desecho.org
 
-Uses [Bootstrap 4](https://getbootstrap.com/)
+Uses [Bootstrap 4](https://getbootstrap.com/).
+
+Run `make help` to get a list of all available commands.
+
+Run in docker:
+1. Run `make docker-build`
+2. Run `make docker-run`
 
 ## Image sources
 * [Telegram](https://telegram.org/)
