@@ -5,6 +5,7 @@ body {
 img {
     width: 75px;
     margin-right: 5px;
+    vertical-align: middle;
 }
 
 ul {
@@ -14,6 +15,7 @@ ul {
 
 li {
     margin: 5px 0;
+    line-height: 75px;
 }
 
 @media screen and (min-width: 1400px) {
