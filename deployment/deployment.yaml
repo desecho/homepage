@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: desecho.org
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: desecho.org
+  template:
+    metadata:
+      labels:
+        app: desecho.org
+    spec:
+      terminationGracePeriodSeconds: 30
+      restartPolicy: Always
+      containers:
+      - name: desecho.org
+        image: ghcr.io/desecho/desecho.org:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80

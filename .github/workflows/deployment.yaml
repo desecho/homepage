@@ -1,0 +1,43 @@
+name: Deployment
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deployment:
+    name: Deployment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Login to GitHub registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+
+      - name: Build and push docker image
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: ghcr.io/${{ github.repository }}:latest
+
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v1
+
+      - name: Configure kubectl
+        run: |
+          mkdir ~/.kube
+          echo $KUBECONFIG > ~/.kube/config
+        env:
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}
+
+      - name: Deploy
+        run: |
+          kubectl apply -f deployment/deployment.yaml
+          kubectl apply -f deployment/ingress.yaml
+          kubectl apply -f deployment/service.yaml
+          kubectl rollout restart deployment/desecho.org
+          kubectl rollout status deployment/desecho.org
