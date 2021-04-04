@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: desecho.org
+  name: homepage
 spec:
   type: ClusterIP
   ports:
   - port: 80
     targetPort: 80
   selector:
-    app: desecho.org
+    app: homepage

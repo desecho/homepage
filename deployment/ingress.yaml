@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: desecho.org
+  name: homepage
   annotations:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -9,7 +9,7 @@ spec:
   tls:
   - hosts:
     - desecho.org
-    secretName: desecho.org-tls
+    secretName: homepage-tls
   rules:
   - host: desecho.org
     http:
@@ -18,6 +18,6 @@ spec:
         path: "/"
         backend:
           service:
-            name: desecho.org
+            name: homepage
             port:
               number: 80
