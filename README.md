@@ -25,6 +25,5 @@ Run in docker:
 * [Facebook](https://en.facebookbrand.com/facebookapp/assets/f-logo?audience=landing)
 * [VK](https://vk.com/brand)
 * [Backloggery](https://backloggery.com/games)
-
-## Font source
-* [Orbitron](https://fonts.google.com/specimen/Orbitron)
+* [Discord](https://discord.com/branding)
+* [Steam](https://partner.steamgames.com/doc/marketing/branding)
