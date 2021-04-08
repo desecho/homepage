@@ -27,3 +27,4 @@ Run in docker:
 * [Backloggery](https://backloggery.com/games)
 * [Discord](https://discord.com/branding)
 * [Steam](https://partner.steamgames.com/doc/marketing/branding)
+* [Playstation](https://www.playstation.com/)
