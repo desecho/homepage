@@ -21,7 +21,6 @@ Run in docker:
 * [Linkedin](https://brand.linkedin.com/downloads)
 * [Fl.ru](https://www.fl.ru/)
 * [Gmail](https://about.google/brand-resource-center/logos-list/)
-* [Youtube](https://about.google/brand-resource-center/logos-list/)
 * [Facebook](https://en.facebookbrand.com/facebookapp/assets/f-logo?audience=landing)
 * [VK](https://vk.com/brand)
 * [Backloggery](https://backloggery.com/games)
