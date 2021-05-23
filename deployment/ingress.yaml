@@ -8,10 +8,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - desecho.org
+    - samarchyan.me
     secretName: homepage-tls
   rules:
-  - host: desecho.org
+  - host: samarchyan.me
     http:
       paths:
       - pathType: Prefix

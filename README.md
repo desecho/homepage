@@ -2,7 +2,7 @@
 
 Uses [Bootstrap 4](https://getbootstrap.com/).
 
-Website is live at https://desecho.org.
+Website is live at https://samarchyan.me.
 
 Run `make help` to get a list of all available commands.
 
