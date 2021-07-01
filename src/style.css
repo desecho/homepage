@@ -1,21 +1,21 @@
 body {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 img {
-    width: 75px;
-    margin-right: 5px;
-    vertical-align: middle;
+  width: 75px;
+  margin-right: 5px;
+  vertical-align: middle;
 }
 
 ul {
-    list-style-type: none;
-    padding: 0;
+  list-style-type: none;
+  padding: 0;
 }
 
 li {
-    margin: 5px 0;
-    line-height: 75px;
+  margin: 5px 0;
+  line-height: 75px;
 }
 
 .container, .container-lg, .container-md, .container-sm, .container-xl {
@@ -23,5 +23,5 @@ li {
 }
 
 h3 {
-    margin-top: 10px;
+  margin-top: 10px;
 }
