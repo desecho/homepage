@@ -42,6 +42,10 @@ help:
 	{ lastLine = $$0 }' $(MAKEFILE_LIST)
 #------------------------------------
 
+.PHONY: preview
+## Show preview | Main
+preview:
+	firefox src/index.html
 
 #------------------------------------
 # Docker commands
