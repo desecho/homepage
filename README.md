@@ -28,3 +28,4 @@ Run in docker:
 * [Steam](https://partner.steamgames.com/doc/marketing/branding)
 * [Playstation](https://www.playstation.com/)
 * [Twitter](https://about.twitter.com/en/who-we-are/brand-toolkit)
+* [PCPartPicker](https://pcpartpicker.com/)
