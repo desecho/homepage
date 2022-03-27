@@ -2,15 +2,17 @@
 
 Uses [Bootstrap 5](https://getbootstrap.com/).
 
-Website is live at https://samarchyan.me.
+Website is live at <https://samarchyan.me>.
 
 Run `make help` to get a list of all available commands.
 
 Run in docker:
+
 1. Run `make docker-build`
 2. Run `make docker-run`
 
 ## Image sources
+
 * [Telegram](https://telegram.org/)
 * [Instagram](https://en.facebookbrand.com/instagram/assets/instagram)
 * [Movies](https://fontawesome.com/)
