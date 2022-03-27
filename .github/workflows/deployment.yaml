@@ -8,13 +8,13 @@ jobs:
     name: Deployment
     runs-on: ubuntu-latest
     steps:
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.9.0
+      - name: Cancel previous runs
+        uses: styfle/cancel-workflow-action@0.9.1
         with:
           access_token: ${{ github.token }}
 
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Login to GitHub registry
         uses: docker/login-action@v1
@@ -30,19 +30,19 @@ jobs:
           tags: ghcr.io/${{ github.repository }}:latest
 
       - name: Install kubectl
-        uses: azure/setup-kubectl@v1
+        uses: azure/setup-kubectl@v2.0
 
       - name: Configure kubectl
         run: |
           mkdir ~/.kube
           echo $KUBECONFIG > ~/.kube/config
         env:
-          KUBECONFIG: ${{ secrets.KUBECONFIG }}
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}  # Done as a variable because doesn't work in place.
 
       - name: Deploy
         run: |
           kubectl apply -f deployment/deployment.yaml
           kubectl apply -f deployment/ingress.yaml
           kubectl apply -f deployment/service.yaml
-          kubectl rollout restart deployment/homepage
-          kubectl rollout status deployment/homepage
+          kubectl rollout restart deployment//${{ github.repository }}
+          kubectl rollout status deployment//${{ github.repository }}
