@@ -1,5 +1,7 @@
 # Homepage
 
+[![Deployment](https://github.com/desecho/homepage/actions/workflows/deployment.yaml/badge.svg)](https://github.com/desecho/homepage/actions/workflows/deployment.yaml)
+
 Uses [Bootstrap 5](https://getbootstrap.com/).
 
 Website is live at <https://samarchyan.me>.
