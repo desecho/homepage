@@ -1,6 +1,6 @@
 # Homepage
 
-Uses [Bootstrap 4](https://getbootstrap.com/).
+Uses [Bootstrap 5](https://getbootstrap.com/).
 
 Website is live at https://samarchyan.me.
 
