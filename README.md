@@ -13,6 +13,21 @@ Run in docker:
 1. Run `make docker-build`
 2. Run `make docker-run`
 
+## CI/CD
+
+[GitHub Actions](https://github.com/features/actions) are used for CI/CD.
+
+Deployment is automatically done in master branch.
+
+The following GitHub Actions are used:
+
+* [Cancel Workflow Action](https://github.com/marketplace/actions/cancel-workflow-action)
+* [Checkout](https://github.com/marketplace/actions/checkout)
+* [Docker Login](https://github.com/marketplace/actions/docker-login)
+* [Docker Build & Push Action](https://github.com/marketplace/actions/docker-build-push-action)
+* [GitHub Action for DigitalOcean - doctl](https://github.com/marketplace/actions/github-action-for-digitalocean-doctl)
+* [Kubectl tool installer](https://github.com/marketplace/actions/kubectl-tool-installer)
+
 ## Image sources
 
 * [Telegram](https://telegram.org/)
