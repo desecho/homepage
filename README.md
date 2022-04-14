@@ -33,7 +33,6 @@ The following GitHub Actions are used:
 * [Telegram](https://telegram.org/)
 * [Instagram](https://en.facebookbrand.com/instagram/assets/instagram)
 * [Movies](https://fontawesome.com/)
-* [Open Source](https://opensource.org/logo-usage-guidelines)
 * [Upwork](https://www.upwork.com/press#media-resources)
 * [Github](https://github.com/logos)
 * [Flickr](https://help.flickr.com/en_us/brand-guidelines-r1KCpZZvS)
