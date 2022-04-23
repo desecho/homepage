@@ -1,3 +1,4 @@
+---
 name: Deployment
 on:
   push:
@@ -16,6 +17,19 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 15.x
+          registry-url: https://registry.npmjs.org
+
+      - name: Install linters
+        run: |
+          pip install yamllint
+          make install-shfmt
+          make install-hadolint
+          sudo npm install -g markdownlint-cli
 
       - name: Login to GitHub registry
         uses: docker/login-action@v1

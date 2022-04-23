@@ -1,3 +1,4 @@
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -7,17 +8,17 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   tls:
-  - hosts:
-    - samarchyan.me
-    secretName: homepage-tls
+    - hosts:
+        - samarchyan.me
+      secretName: homepage-tls
   rules:
-  - host: samarchyan.me
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: homepage
-            port:
-              number: 80
+    - host: samarchyan.me
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: homepage
+                port:
+                  number: 80

@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,8 +16,8 @@ spec:
       terminationGracePeriodSeconds: 30
       restartPolicy: Always
       containers:
-      - name: homepage
-        image: ghcr.io/desecho/homepage:latest
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 80
+        - name: homepage
+          image: ghcr.io/desecho/homepage:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
