@@ -6,7 +6,7 @@ Uses [Bootstrap 5](https://getbootstrap.com/).
 
 Website is live at <https://samarchyan.me>.
 
-Run `make help` to get a list of all available commands.
+Run `make` to get a list of all available commands.
 
 Run in docker:
 
@@ -32,7 +32,6 @@ The following GitHub Actions are used:
 
 * [Telegram](https://telegram.org/)
 * [Instagram](https://en.facebookbrand.com/instagram/assets/instagram)
-* [Movies](https://fontawesome.com/)
 * [Upwork](https://www.upwork.com/press#media-resources)
 * [Github](https://github.com/logos)
 * [Flickr](https://help.flickr.com/en_us/brand-guidelines-r1KCpZZvS)
