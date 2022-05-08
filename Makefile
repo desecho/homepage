@@ -32,7 +32,7 @@ install-hadolint:
 .PHONY: preview
 ## Show preview | Commands
 preview:
-	firefox src/index.
+	firefox src/index.html
 
 .PHONY: lint
 ## Run linters
