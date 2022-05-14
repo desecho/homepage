@@ -9,6 +9,9 @@ jobs:
   deployment:
     name: Deployment
     runs-on: ubuntu-latest
+    env:
+      PROJECT: homepage
+      SPACE_NAME: cdn.samarchyan.me
     steps:
       - name: Cancel previous runs
         uses: styfle/cancel-workflow-action@0.9.1
@@ -48,7 +51,7 @@ jobs:
         with:
           access_key: ${{ secrets.SPACES_ACCESS_KEY}}
           secret_key: ${{ secrets.SPACES_SECRET_KEY }}
-          space_name: cdn.samarchyan.me
+          space_name: ${{ env.SPACE_NAME }}
           space_region: nyc3
           source: cdn
 
@@ -59,7 +62,7 @@ jobs:
 
       - name: Flush CDN cache
         run: |
-          CDN_ID=$(doctl compute cdn list | grep cdn.samarchyan.me | awk '{print $1}')
+          CDN_ID="$(doctl compute cdn list | grep $SPACE_NAME | awk '{print $1}')"
           doctl compute cdn flush $CDN_ID
 
       - name: Install kubectl
@@ -77,5 +80,5 @@ jobs:
           kubectl apply -f deployment/deployment.yaml
           kubectl apply -f deployment/ingress.yaml
           kubectl apply -f deployment/service.yaml
-          kubectl rollout restart deployment/homepage
-          kubectl rollout status deployment/homepage
+          kubectl rollout restart "deployment/$PROJECT"
+          kubectl rollout status "deployment/$PROJECT"
