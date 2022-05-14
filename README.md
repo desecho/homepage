@@ -27,6 +27,7 @@ The following GitHub Actions are used:
 * [Docker Build & Push Action](https://github.com/marketplace/actions/docker-build-push-action)
 * [GitHub Action for DigitalOcean - doctl](https://github.com/marketplace/actions/github-action-for-digitalocean-doctl)
 * [Kubectl tool installer](https://github.com/marketplace/actions/kubectl-tool-installer)
+* [DigitalOcean Spaces Upload Action](https://github.com/marketplace/actions/digitalocean-spaces-upload-action)
 
 ## Image sources
 
