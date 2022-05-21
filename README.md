@@ -24,7 +24,7 @@ The following GitHub Actions are used:
 * [Cancel Workflow Action](https://github.com/marketplace/actions/cancel-workflow-action)
 * [Checkout](https://github.com/marketplace/actions/checkout)
 * [Docker Login](https://github.com/marketplace/actions/docker-login)
-* [Docker Build & Push Action](https://github.com/marketplace/actions/docker-build-push-action)
+* [Build and push Docker images](https://github.com/marketplace/actions/build-and-push-docker-images)
 * [GitHub Action for DigitalOcean - doctl](https://github.com/marketplace/actions/github-action-for-digitalocean-doctl)
 * [Kubectl tool installer](https://github.com/marketplace/actions/kubectl-tool-installer)
 * [DigitalOcean Spaces Upload Action](https://github.com/marketplace/actions/digitalocean-spaces-upload-action)
