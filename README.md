@@ -28,6 +28,8 @@ The following GitHub Actions are used:
 * [GitHub Action for DigitalOcean - doctl](https://github.com/marketplace/actions/github-action-for-digitalocean-doctl)
 * [Kubectl tool installer](https://github.com/marketplace/actions/kubectl-tool-installer)
 * [DigitalOcean Spaces Upload Action](https://github.com/marketplace/actions/digitalocean-spaces-upload-action)
+* [Cache](https://github.com/marketplace/actions/cache)
+* [Docker Setup Buildx](https://github.com/marketplace/actions/docker-setup-buildx)
 
 ## Image sources
 
