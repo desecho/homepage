@@ -85,9 +85,7 @@ jobs:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
       - name: Flush CDN cache
-        run: |
-          CDN_ID="$(doctl compute cdn list | grep "$SPACE_NAME" | awk '{print $1}')"
-          doctl compute cdn flush "$CDN_ID"
+        run: make flush-cdn-cache
   deploy:
     name: Deploy
     runs-on: ubuntu-latest

@@ -81,3 +81,12 @@ docker-run:
 docker-sh:
 	docker run -ti homepage sh
 #------------------------------------
+
+
+#------------------------------------
+# Scripts
+#------------------------------------
+.PHONY: flush-cdn-cache
+flush-cdn-cache:
+	scripts/flush_cdn_cache.sh
+#------------------------------------
