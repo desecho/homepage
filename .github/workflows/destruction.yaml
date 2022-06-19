@@ -1,16 +1,13 @@
 ---
 name: Destruction
 on: workflow_dispatch
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
 jobs:
   destruction:
     name: Destruction
     runs-on: ubuntu-latest
     steps:
-      - name: Cancel previous runs
-        uses: styfle/cancel-workflow-action@0.9.1
-        with:
-          access_token: ${{ github.token }}
-
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -20,7 +17,7 @@ jobs:
       - name: Configure kubectl
         run: |
           mkdir ~/.kube
-          echo $KUBECONFIG > ~/.kube/config
+          echo "$KUBECONFIG" > ~/.kube/config
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}  # Done as a variable because doesn't work in place.
 

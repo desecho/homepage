@@ -5,19 +5,14 @@ on:
     branches:
       - master
   workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
-  deployment:
-    name: Deployment
+  test:
+    name: Test
     runs-on: ubuntu-latest
-    env:
-      PROJECT: homepage
-      SPACE_NAME: cdn.samarchyan.me
     steps:
-      - name: Cancel previous runs
-        uses: styfle/cancel-workflow-action@0.9.1
-        with:
-          access_token: ${{ github.token }}
-
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -42,9 +37,15 @@ jobs:
       - name: Install linters
         run: |
           pip install yamllint
-          make install-shfmt
-          make install-hadolint
+          make install-linters-binaries
           sudo npm install -g markdownlint-cli
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -63,6 +64,15 @@ jobs:
           tags: ghcr.io/${{ github.repository }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
+  upload_files:
+    name: Upload files
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      SPACE_NAME: cdn.samarchyan.me
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - uses: BetaHuhn/do-spaces-action@v2
         with:
@@ -79,8 +89,17 @@ jobs:
 
       - name: Flush CDN cache
         run: |
-          CDN_ID="$(doctl compute cdn list | grep $SPACE_NAME | awk '{print $1}')"
-          doctl compute cdn flush $CDN_ID
+          CDN_ID="$(doctl compute cdn list | grep "$SPACE_NAME" | awk '{print $1}')"
+          doctl compute cdn flush "$CDN_ID"
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: upload_files
+    env:
+      PROJECT: homepage
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Install kubectl
         uses: azure/setup-kubectl@v2.1
@@ -88,7 +107,7 @@ jobs:
       - name: Configure kubectl
         run: |
           mkdir ~/.kube
-          echo $KUBECONFIG > ~/.kube/config
+          echo "$KUBECONFIG" > ~/.kube/config
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}  # Done as a variable because doesn't work in place.
 

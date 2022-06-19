@@ -21,7 +21,6 @@ Deployment is automatically done in master branch.
 
 The following GitHub Actions are used:
 
-* [Cancel Workflow Action](https://github.com/marketplace/actions/cancel-workflow-action)
 * [Checkout](https://github.com/marketplace/actions/checkout)
 * [Docker Login](https://github.com/marketplace/actions/docker-login)
 * [Build and push Docker images](https://github.com/marketplace/actions/build-and-push-docker-images)
