@@ -57,10 +57,12 @@ lint:
 	yamllint .github deployment
 	hadolint Dockerfile
 	actionlint
+	scripts/djhtml.sh lint
 
 .PHONY: format
 ## Format files
 format:
+	scripts/djhtml.sh format
 	markdownlint README.md --fix
 
 #------------------------------------
