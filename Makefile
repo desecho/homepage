@@ -54,7 +54,7 @@ preview:
 ## Run linters
 lint:
 	markdownlint README.md
-	yamllint .github deployment
+	prettier --check ./.github/**/*.yaml ./**/*.yaml
 	hadolint Dockerfile
 	actionlint
 	scripts/djhtml.sh lint
@@ -64,6 +64,7 @@ lint:
 format:
 	scripts/djhtml.sh format
 	markdownlint README.md --fix
+	prettier --write ./.github/**/*.yaml ./**/*.yaml
 
 #------------------------------------
 # Docker commands

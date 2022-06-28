@@ -36,10 +36,9 @@ jobs:
 
       - name: Install linters
         run: |
-          pip install yamllint
           pip install djhtml
           make install-linters-binaries
-          sudo npm install -g markdownlint-cli
+          sudo npm install -g markdownlint-cli prettier
   build:
     name: build
     runs-on: ubuntu-latest
@@ -105,7 +104,7 @@ jobs:
           mkdir ~/.kube
           echo "$KUBECONFIG" > ~/.kube/config
         env:
-          KUBECONFIG: ${{ secrets.KUBECONFIG }}  # Done as a variable because doesn't work in place.
+          KUBECONFIG: ${{ secrets.KUBECONFIG }} # Done as a variable because doesn't work in place.
 
       - name: Deploy
         run: |
