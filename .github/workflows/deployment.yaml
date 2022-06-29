@@ -36,7 +36,6 @@ jobs:
 
       - name: Install linters
         run: |
-          pip install djhtml
           make install-linters-binaries
           sudo npm install -g markdownlint-cli prettier
   build:

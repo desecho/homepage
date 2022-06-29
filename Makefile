@@ -57,12 +57,12 @@ lint:
 	prettier --check ./.github/**/*.yaml ./**/*.yaml
 	hadolint Dockerfile
 	actionlint
-	scripts/djhtml.sh lint
+	prettier --check ./**/*.html
 
 .PHONY: format
 ## Format files
 format:
-	scripts/djhtml.sh format
+	prettier --write ./**/*.html
 	markdownlint README.md --fix
 	prettier --write ./.github/**/*.yaml ./**/*.yaml
 
