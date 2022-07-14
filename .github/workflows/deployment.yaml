@@ -28,12 +28,6 @@ jobs:
           path: ~/.npm
           key: npm
 
-      - name: Use pip cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pip
-          key: pip
-
       - name: Install linters
         run: |
           make install-linters-binaries
