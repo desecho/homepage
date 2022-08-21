@@ -13,6 +13,12 @@ Run in docker:
 1. Run `make docker-build`
 2. Run `make docker-run`
 
+## Cron jobs
+
+Cron jobs are run with [GitHub Actions](https://github.com/features/actions). Time zone is UTC.
+
+* `Update GitHub actions` runs at 04:00 UTC (00:00 EDT) on the first day of the month
+
 ## CI/CD
 
 [GitHub Actions](https://github.com/features/actions) are used for CI/CD.
@@ -29,6 +35,7 @@ The following GitHub Actions are used:
 * [DigitalOcean Spaces Upload Action](https://github.com/marketplace/actions/digitalocean-spaces-upload-action)
 * [Cache](https://github.com/marketplace/actions/cache)
 * [Docker Setup Buildx](https://github.com/marketplace/actions/docker-setup-buildx)
+* [GitHub Actions Version Updater](https://github.com/marketplace/actions/github-actions-version-updater)
 
 ## Image sources
 
