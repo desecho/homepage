@@ -64,7 +64,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3.0.2
 
-      - uses: BetaHuhn/do-spaces-action@v2.0.69
+      - uses: BetaHuhn/do-spaces-action@v2.0.70
         with:
           access_key: ${{ secrets.SPACES_ACCESS_KEY}}
           secret_key: ${{ secrets.SPACES_SECRET_KEY }}
