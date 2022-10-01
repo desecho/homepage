@@ -55,3 +55,4 @@ The following GitHub Actions are used:
 * [Playstation](https://www.playstation.com/)
 * [Twitter](https://about.twitter.com/en/who-we-are/brand-toolkit)
 * [PCPartPicker](https://pcpartpicker.com/)
+* [Twitch](https://www.twitch.tv/p/press-center/)
