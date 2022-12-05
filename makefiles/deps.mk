@@ -1,8 +1,9 @@
 BIN_DIR := /usr/local/bin
 
-SHFMT_VERSION := 3.4.3
+SHFMT_VERSION := 3.5.1
 SHFMT_PATH    := ${BIN_DIR}/shfmt
 
+# https://github.com/mvdan/sh/releases
 .PHONY: .install-shfmt
 .install-shfmt:
 	$(call print,Installing shfmt)
@@ -14,6 +15,7 @@ SHELLCHECK_PATH    := $(BIN_DIR)/shellcheck
 SHELLCHECK_TMP_DIR := $(shell mktemp -d)
 SHELLCHECK_ARCHIVE := shellcheck.tar.xz
 
+# https://github.com/koalaman/shellcheck/releases
 .PHONY: .install-shellcheck
 .install-shellcheck:
 	$(call print,Installing shellcheck)
@@ -22,16 +24,18 @@ SHELLCHECK_ARCHIVE := shellcheck.tar.xz
 		&& tar -xf $(SHELLCHECK_ARCHIVE) \
 		&& sudo cp shellcheck-v$(SHELLCHECK_VERSION)/shellcheck $(SHELLCHECK_PATH)
 
-HADOLINT_VERSION := 2.10.0
-HADOLINT_PATH := ${BIN_DIR}/hadolint
+HADOLINT_VERSION := 2.12.0
+HADOLINT_PATH    := ${BIN_DIR}/hadolint
 
+# https://github.com/hadolint/hadolint/releases/
 .PHONY: .install-hadolint
 .install-hadolint:
 	$(call print,Installing hadolint)
 	@sudo curl https://github.com/hadolint/hadolint/releases/download/v${HADOLINT_VERSION}/hadolint-Linux-x86_64 -Lo ${HADOLINT_PATH}
 	@sudo chmod +x ${HADOLINT_PATH}
 
-ACTIONLINT_VERSION := 1.6.13
+# https://github.com/rhysd/actionlint/releases
+ACTIONLINT_VERSION := 1.6.22
 ACTIONLINT_PATH    := ${BIN_DIR}/actionlint
 ACTIONLINT_URL     := https://github.com/rhysd/actionlint/releases/download/v${ACTIONLINT_VERSION}/actionlint_${ACTIONLINT_VERSION}_linux_amd64.tar.gz
 ACTIONLINT_TMP_DIR := $(shell mktemp -d)
