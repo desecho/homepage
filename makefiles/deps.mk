@@ -1,14 +1,14 @@
 BIN_DIR := /usr/local/bin
 
 SHFMT_VERSION := 3.5.1
-SHFMT_PATH    := ${BIN_DIR}/shfmt
+SHFMT_PATH    := $(BIN_DIR)/shfmt
 
 # https://github.com/mvdan/sh/releases
 .PHONY: .install-shfmt
 .install-shfmt:
 	$(call print,Installing shfmt)
-	sudo curl https://github.com/mvdan/sh/releases/download/v${SHFMT_VERSION}/shfmt_v${SHFMT_VERSION}_linux_amd64 -Lo ${SHFMT_PATH}
-	sudo chmod +x ${SHFMT_PATH}
+	sudo curl https://github.com/mvdan/sh/releases/download/v$(SHFMT_VERSION)/shfmt_v$(SHFMT_VERSION)_linux_amd64 -Lo $(SHFMT_PATH)
+	sudo chmod +x $(SHFMT_PATH)
 
 SHELLCHECK_VERSION := 0.8.0
 SHELLCHECK_PATH    := $(BIN_DIR)/shellcheck
@@ -25,26 +25,26 @@ SHELLCHECK_ARCHIVE := shellcheck.tar.xz
 		&& sudo cp shellcheck-v$(SHELLCHECK_VERSION)/shellcheck $(SHELLCHECK_PATH)
 
 HADOLINT_VERSION := 2.12.0
-HADOLINT_PATH    := ${BIN_DIR}/hadolint
+HADOLINT_PATH    := $(BIN_DIR)/hadolint
 
 # https://github.com/hadolint/hadolint/releases/
 .PHONY: .install-hadolint
 .install-hadolint:
 	$(call print,Installing hadolint)
-	sudo curl https://github.com/hadolint/hadolint/releases/download/v${HADOLINT_VERSION}/hadolint-Linux-x86_64 -Lo ${HADOLINT_PATH}
-	sudo chmod +x ${HADOLINT_PATH}
+	sudo curl https://github.com/hadolint/hadolint/releases/download/v$(HADOLINT_VERSION)/hadolint-Linux-x86_64 -Lo $(HADOLINT_PATH)
+	sudo chmod +x $(HADOLINT_PATH)
 
 # https://github.com/rhysd/actionlint/releases
 ACTIONLINT_VERSION := 1.6.22
-ACTIONLINT_PATH    := ${BIN_DIR}/actionlint
-ACTIONLINT_URL     := https://github.com/rhysd/actionlint/releases/download/v${ACTIONLINT_VERSION}/actionlint_${ACTIONLINT_VERSION}_linux_amd64.tar.gz
+ACTIONLINT_PATH    := $(BIN_DIR)/actionlint
+ACTIONLINT_URL     := https://github.com/rhysd/actionlint/releases/download/v$(ACTIONLINT_VERSION)/actionlint_$(ACTIONLINT_VERSION)_linux_amd64.tar.gz
 ACTIONLINT_TMP_DIR := $(shell mktemp -d)
 ACTIONLINT_ARCHIVE := actionlint.tar.gz
 
 .PHONY: .install-actionlint
 .install-actionlint:
 	$(call print,Installing actionlint)
-	cd ${ACTIONLINT_TMP_DIR} && \
-	curl ${ACTIONLINT_URL} -Lo ${ACTIONLINT_ARCHIVE} && \
-	tar -xvf ${ACTIONLINT_ARCHIVE} && \
-	sudo mv actionlint ${ACTIONLINT_PATH}
+	cd $(ACTIONLINT_TMP_DIR) && \
+	curl $(ACTIONLINT_URL) -Lo $(ACTIONLINT_ARCHIVE) && \
+	tar -xvf $(ACTIONLINT_ARCHIVE) && \
+	sudo mv actionlint $(ACTIONLINT_PATH)

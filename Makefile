@@ -19,11 +19,13 @@ install-linters-binaries: .install-shfmt .install-hadolint .install-actionlint .
 ## Install linters binaries (install-linters-binaries alias)
 install: install-linters-binaries
 
+PRE_COMMIT_VERSION := 2.20.0
+
 .PHONY: install-pre-commit
 ## Install pre-commit
 install-pre-commit:
 	$(call print,Installing pre-commit)
-	sudo pip3 install pre-commit
+	sudo pip3 install pre-commit==$(PRE_COMMIT_VERSION)
 
 .PHONY: setup-pre-commit
 ## Set up pre-commit. Activate git hooks
