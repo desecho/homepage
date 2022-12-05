@@ -15,7 +15,6 @@ SHELLCHECK_TMP_DIR := $(shell mktemp -d)
 SHELLCHECK_ARCHIVE := shellcheck.tar.xz
 
 .PHONY: .install-shellcheck
-## Install shellcheck
 .install-shellcheck:
 	$(call print,Installing shellcheck)
 	@cd $(SHELLCHECK_TMP_DIR) \
