@@ -30,8 +30,8 @@ jobs:
 
       - name: Install linters
         run: |
+          make install-pre-commit
           make install-linters-binaries
-          sudo npm install -g markdownlint-cli prettier
   build:
     name: build
     runs-on: ubuntu-latest

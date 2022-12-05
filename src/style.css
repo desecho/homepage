@@ -19,8 +19,12 @@ li {
   line-height: 75px;
 }
 
-.container, .container-lg, .container-md, .container-sm, .container-xl {
-	max-width: 1360px;
+.container,
+.container-lg,
+.container-md,
+.container-sm,
+.container-xl {
+  max-width: 1360px;
 }
 
 h3 {

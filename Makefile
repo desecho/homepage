@@ -5,8 +5,17 @@ include makefiles/help.mk
 include makefiles/macros.mk
 
 #------------------------------------
+# Helpers
+#------------------------------------
+
+.PHONY: pre-commit
+.pre-commit:
+	@pre-commit run --all-files
+
+#------------------------------------
 # Installation
 #------------------------------------
+
 BIN_DIR := /usr/local/bin
 
 SHFMT_VERSION := 3.4.3
@@ -17,6 +26,20 @@ install-shfmt:
 	$(call print,Installing shfmt)
 	@sudo curl https://github.com/mvdan/sh/releases/download/v${SHFMT_VERSION}/shfmt_v${SHFMT_VERSION}_linux_amd64 -Lo ${SHFMT_PATH}
 	@sudo chmod +x ${SHFMT_PATH}
+
+SHELLCHECK_VERSION := 0.8.0
+SHELLCHECK_PATH    := $(BIN_DIR)/shellcheck
+SHELLCHECK_TMP_DIR := $(shell mktemp -d)
+SHELLCHECK_ARCHIVE := shellcheck.tar.xz
+
+.PHONY: install-shellcheck
+## Install shellcheck
+install-shellcheck:
+	$(call print,Installing shellcheck)
+	@cd $(SHELLCHECK_TMP_DIR) \
+		&& curl https://github.com/koalaman/shellcheck/releases/download/v$(SHELLCHECK_VERSION)/shellcheck-v$(SHELLCHECK_VERSION).linux.x86_64.tar.xz -Lo $(SHELLCHECK_ARCHIVE) \
+		&& tar -xf $(SHELLCHECK_ARCHIVE) \
+		&& sudo cp shellcheck-v$(SHELLCHECK_VERSION)/shellcheck $(SHELLCHECK_PATH)
 
 HADOLINT_VERSION := 2.10.0
 HADOLINT_PATH := ${BIN_DIR}/hadolint
@@ -43,11 +66,23 @@ install-actionlint:
 
 .PHONY: install-linters-binaries
 ## Install linters binaries | Installation
-install-linters-binaries: install-shfmt install-hadolint install-actionlint
+install-linters-binaries: install-shfmt install-hadolint install-actionlint install-shellcheck
 
 .PHONY: install
 ## Install linters binaries (install-linters-binaries alias)
 install: install-linters-binaries
+
+.PHONY: install-pre-commit
+## Install pre-commit
+install-pre-commit:
+	$(call print,Installing pre-commit)
+	@sudo pip3 install pre-commit
+
+.PHONY: setup-pre-commit
+## Set up pre-commit. Activate git hooks
+set-up-pre-commit:
+	$(call print,Setting up pre-commit)
+	@pre-commit install
 
 #------------------------------------
 # Commands
@@ -60,21 +95,15 @@ preview:
 
 .PHONY: lint
 ## Run linters
-lint:
+lint: .pre-commit
 	$(call print,Running linters)
-	@markdownlint README.md
-	@prettier --check ./.github/**/*.yaml ./**/*.yaml
 	@hadolint Dockerfile
 	@actionlint
-	@prettier --check ./**/*.html
 
 .PHONY: format
 ## Format files
-format:
+format: .pre-commit
 	$(call print,Formatting files)
-	@prettier --write ./**/*.html
-	@markdownlint README.md --fix
-	@prettier --write ./.github/**/*.yaml ./**/*.yaml
 
 #------------------------------------
 # Docker commands
