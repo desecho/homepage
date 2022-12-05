@@ -3,13 +3,13 @@ TARGET_MAX_CHAR_NUM := 30
 .PHONY: help
 ## Show help | Help
 help:
-	@echo ''
-	@echo 'Usage:'
-	@printf "  ${YELLOW}make${RESET} ${GREEN}<target>${RESET}"
-	@echo ''
-	@echo ''
-	@echo 'Targets:'
-	@awk '/^[a-zA-Z\-\_0-9]+:/ { \
+	echo ''
+	echo 'Usage:'
+	printf "  ${YELLOW}make${RESET} ${GREEN}<target>${RESET}"
+	echo ''
+	echo ''
+	echo 'Targets:'
+	awk '/^[a-zA-Z\-\_0-9]+:/ { \
 		helpMessage = match(lastLine, /^## (.*)/); \
 		if (helpMessage) { \
 			if (index(lastLine, "|") != 0) { \

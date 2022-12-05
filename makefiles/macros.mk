@@ -1,1 +1,1 @@
-print = @printf '$(CYAN)---\n$(1)\n---$(RESET)\n'
+print = printf '$(CYAN)---\n$(1)\n---$(RESET)\n'

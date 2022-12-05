@@ -1,3 +1,4 @@
+.SILENT:
 .DEFAULT_GOAL := help
 
 include makefiles/colors.mk
@@ -22,13 +23,13 @@ install: install-linters-binaries
 ## Install pre-commit
 install-pre-commit:
 	$(call print,Installing pre-commit)
-	@sudo pip3 install pre-commit
+	sudo pip3 install pre-commit
 
 .PHONY: setup-pre-commit
 ## Set up pre-commit. Activate git hooks
 set-up-pre-commit:
 	$(call print,Setting up pre-commit)
-	@pre-commit install
+	pre-commit install
 
 #------------------------------------
 # Commands
@@ -44,8 +45,8 @@ preview:
 ## Run linters
 lint: .pre-commit
 	$(call print,Running linters)
-	@hadolint Dockerfile
-	@actionlint
+	hadolint Dockerfile
+	actionlint
 
 .PHONY: format
 ## Format files
@@ -60,19 +61,19 @@ format: .pre-commit
 ## Run docker build | Docker
 docker-build:
 	$(call print,Building Docker image)
-	@docker build -t homepage .
+	docker build -t homepage .
 
 .PHONY: docker-run
 ## Run docker run
 docker-run:
 	$(call print,Running server in docker)
-	@docker run -p 8000:80 homepage
+	docker run -p 8000:80 homepage
 
 .PHONY: docker-sh
 ## Run docker shell
 docker-sh:
 	$(call print,Running docker shell)
-	@docker run -ti homepage sh
+	docker run -ti homepage sh
 
 #------------------------------------
 
@@ -83,6 +84,6 @@ docker-sh:
 .PHONY: flush-cdn-cache
 flush-cdn-cache:
 	$(call print,Running flush CDN cache script)
-	@scripts/flush_cdn_cache.sh
+	scripts/flush_cdn_cache.sh
 
 #------------------------------------
