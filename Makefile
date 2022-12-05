@@ -33,6 +33,7 @@ set-up-pre-commit:
 #------------------------------------
 # Commands
 #------------------------------------
+
 .PHONY: preview
 ## Show preview | Commands
 preview:
@@ -54,6 +55,7 @@ format: .pre-commit
 #------------------------------------
 # Docker commands
 #------------------------------------
+
 .PHONY: docker-build
 ## Run docker build | Docker
 docker-build:
@@ -71,13 +73,16 @@ docker-run:
 docker-sh:
 	$(call print,Running docker shell)
 	@docker run -ti homepage sh
+
 #------------------------------------
 
 #------------------------------------
 # Scripts
 #------------------------------------
+
 .PHONY: flush-cdn-cache
 flush-cdn-cache:
 	$(call print,Running flush CDN cache script)
 	@scripts/flush_cdn_cache.sh
+
 #------------------------------------
