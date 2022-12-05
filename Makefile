@@ -19,6 +19,8 @@ install-linters-binaries: .install-shfmt .install-hadolint .install-actionlint .
 ## Install linters binaries (install-linters-binaries alias)
 install: install-linters-binaries
 
+# pre-commit
+# https://pypi.org/project/pre-commit/
 PRE_COMMIT_VERSION := 2.20.0
 
 .PHONY: install-pre-commit
@@ -56,7 +58,7 @@ format: .pre-commit
 	$(call print,Formatting files)
 
 #------------------------------------
-# Docker commands
+# Docker
 #------------------------------------
 
 .PHONY: docker-build
@@ -83,6 +85,7 @@ docker-sh:
 # Scripts
 #------------------------------------
 
+# Used in the CI.
 .PHONY: flush-cdn-cache
 flush-cdn-cache:
 	$(call print,Running flush CDN cache script)
