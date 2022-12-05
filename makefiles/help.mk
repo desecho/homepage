@@ -12,7 +12,7 @@ help:
 	@awk '/^[a-zA-Z\-\_0-9]+:/ { \
 		helpMessage = match(lastLine, /^## (.*)/); \
 		if (helpMessage) { \
-		    if (index(lastLine, "|") != 0) { \
+			if (index(lastLine, "|") != 0) { \
 				stage = substr(lastLine, index(lastLine, "|") + 1); \
 				printf "\n %s: \n", stage;  \
 			} \
