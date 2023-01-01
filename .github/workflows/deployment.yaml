@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@v3.2.0
 
       - name: Set up Node.js
         uses: actions/setup-node@v3.5.1
@@ -23,7 +23,7 @@ jobs:
           registry-url: https://registry.npmjs.org
 
       - name: Use npm cache
-        uses: actions/cache@v3.0.11
+        uses: actions/cache@v3.2.2
         with:
           path: ~/.npm
           key: npm
@@ -62,9 +62,9 @@ jobs:
       SPACE_NAME: cdn.samarchyan.me
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@v3.2.0
 
-      - uses: BetaHuhn/do-spaces-action@v2.0.84
+      - uses: BetaHuhn/do-spaces-action@v2.0.87
         with:
           access_key: ${{ secrets.SPACES_ACCESS_KEY}}
           secret_key: ${{ secrets.SPACES_SECRET_KEY }}
@@ -73,7 +73,7 @@ jobs:
           source: cdn
 
       - name: Install doctl
-        uses: digitalocean/action-doctl@v2.2.0
+        uses: digitalocean/action-doctl@v2.3.0
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
@@ -87,10 +87,10 @@ jobs:
       PROJECT: homepage
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@v3.2.0
 
       - name: Install kubectl
-        uses: azure/setup-kubectl@v3.0
+        uses: azure/setup-kubectl@v3.1
 
       - name: Configure kubectl
         run: |
