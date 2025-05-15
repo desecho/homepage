@@ -23,7 +23,7 @@ jobs:
           registry-url: https://registry.npmjs.org
 
       - name: Use npm cache
-        uses: actions/cache@v3.0.11
+        uses: actions/cache@v4.2.3
         with:
           path: ~/.npm
           key: npm
