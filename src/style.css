@@ -1,22 +1,18 @@
 body {
   font-size: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 2rem 0;
 }
 
-img {
-  width: 75px;
-  margin-right: 5px;
-  vertical-align: middle;
-  border-radius: 5px;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  margin: 5px 0;
-  line-height: 75px;
+.container {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  margin-top: 2rem;
 }
 
 .container,
@@ -29,4 +25,88 @@ li {
 
 h3 {
   margin-top: 10px;
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
+  font-weight: 600;
+  text-align: center;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e3f2fd;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin: 0.75rem 0;
+  line-height: 1.4;
+  transition: all 0.3s ease;
+}
+
+li:hover {
+  transform: translateX(5px);
+}
+
+a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #34495e;
+  padding: 0.75rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+a:hover {
+  background: rgba(116, 75, 162, 0.1);
+  color: #764ba2;
+  text-decoration: none;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-color: rgba(116, 75, 162, 0.2);
+}
+
+img {
+  width: 48px;
+  height: 48px;
+  margin-right: 12px;
+  border-radius: 8px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+a:hover img {
+  transform: scale(1.1);
+}
+
+.col-md {
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 1rem 0;
+  }
+  
+  .container {
+    margin: 1rem;
+    padding: 1.5rem;
+    border-radius: 15px;
+  }
+  
+  h3 {
+    font-size: 1.25rem;
+  }
+  
+  a {
+    padding: 0.5rem;
+  }
+  
+  img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
 }

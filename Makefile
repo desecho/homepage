@@ -43,7 +43,7 @@ set-up-pre-commit:
 ## Show preview | Commands
 preview:
 	$(call print,Previewing)
-	firefox src/index.html
+	open -a Firefox src/index.html
 
 .PHONY: lint
 ## Run linters
