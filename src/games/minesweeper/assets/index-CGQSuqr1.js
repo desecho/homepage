@@ -1,1 +1,475 @@
-(function(){const o=document.createElement("link").relList;if(o&&o.supports&&o.supports("modulepreload"))return;for(const r of document.querySelectorAll('link[rel="modulepreload"]'))t(r);new MutationObserver(r=>{for(const i of r)if(i.type==="childList")for(const l of i.addedNodes)l.tagName==="LINK"&&l.rel==="modulepreload"&&t(l)}).observe(document,{childList:!0,subtree:!0});function n(r){const i={};return r.integrity&&(i.integrity=r.integrity),r.referrerPolicy&&(i.referrerPolicy=r.referrerPolicy),r.crossOrigin==="use-credentials"?i.credentials="include":r.crossOrigin==="anonymous"?i.credentials="omit":i.credentials="same-origin",i}function t(r){if(r.ep)return;r.ep=!0;const i=n(r);fetch(r.href,i)}})();function O(e,o){const n=o.getBoundingClientRect();return{x:(e.clientX-n.left)*o.width/n.width,y:(e.clientY-n.top)*o.height/n.height}}function oe(e,o,n){return e>=n.x&&e<n.x+n.width&&o>=n.y&&o<n.y+n.height}function _(e,o,n,t){const r=e.cols*o.cellSize,i=e.rows*o.cellSize;if(n<o.boardX||n>=o.boardX+r||t<o.boardY||t>=o.boardY+i)return null;const l=Math.floor((n-o.boardX)/o.cellSize),s=Math.floor((t-o.boardY)/o.cellSize);return s<0||s>=e.rows||l<0||l>=e.cols?null:{row:s,col:l}}function J(e,o,n){return oe(o,n,e.reset)?"reset":null}const X=999,G=-99;function te(){return{hasMine:!1,adjacentMines:0,revealed:!1,flagged:!1}}function re(e,o){return Array.from({length:e},()=>Array.from({length:o},()=>te()))}function Y(e){return e.map(o=>o.map(n=>({...n})))}function L(e,o,n){return o>=0&&o<e.rows&&n>=0&&n<e.cols}function ie(e,o,n){const t=[];for(let r=o-1;r<=o+1;r+=1)for(let i=n-1;i<=n+1;i+=1)r===o&&i===n||L(e,r,i)&&t.push({row:r,col:i});return t}function le(e){var t;const o=e.length,n=((t=e[0])==null?void 0:t.length)??0;for(let r=0;r<o;r+=1)for(let i=0;i<n;i+=1){if(e[r][i].hasMine){e[r][i].adjacentMines=0;continue}let l=0;for(let s=r-1;s<=r+1;s+=1)for(let f=i-1;f<=i+1;f+=1)s===r&&f===i||s<0||s>=o||f<0||f>=n||e[s][f].hasMine&&(l+=1);e[r][i].adjacentMines=l}}function se(e,o,n,t,r,i){const l=[];for(let s=0;s<e;s+=1)for(let f=0;f<o;f+=1)s===t&&f===r||l.push({row:s,col:f});for(let s=l.length-1;s>0;s-=1){const f=Math.floor(i()*(s+1)),a=l[s];l[s]=l[f],l[f]=a}return l.slice(0,n)}function fe(e){for(const o of e)for(const n of o)n.hasMine&&(n.revealed=!0)}function de(e){let o=0;for(const n of e)for(const t of n)t.hasMine&&(t.flagged||(t.flagged=!0),o+=1);return o}function ae(e,o,n){const t=[n];let r=0;for(;t.length>0;){const i=t.pop();if(!i)continue;const l=o[i.row][i.col];if(l.revealed||l.flagged||(l.revealed=!0,r+=1,l.adjacentMines!==0))continue;const s=ie(e,i.row,i.col);for(const f of s){const a=o[f.row][f.col];!a.revealed&&!a.flagged&&!a.hasMine&&t.push(f)}}return r}function Q(e){return e>X?X:e<G?G:e}function V(e,o,n){if(e<=0||o<=0)throw new Error("rows and cols must be positive");if(n<0||n>=e*o)throw new Error("mineCount must be between 0 and rows*cols - 1");return{rows:e,cols:o,mineCount:n,board:re(e,o),status:"ready",revealedCount:0,flagCount:0,startedAt:null,elapsedSeconds:0,firstClickSafe:!0,minesPlanted:!1,explodedCell:null}}function ce(e,o,n,t=Math.random){if(e.minesPlanted||!L(e,o,n))return e;const r=Y(e.board),i=se(e.rows,e.cols,e.mineCount,o,n,t);for(const l of i)r[l.row][l.col].hasMine=!0;return le(r),{...e,board:r,minesPlanted:!0}}function ue(e,o,n,t=Date.now(),r=Math.random){if(!L(e,o,n)||e.status==="won"||e.status==="lost")return e;const i=e.board[o][n];if(i.revealed||i.flagged)return e;let l=e;l.minesPlanted||(l=ce(l,o,n,r));const s=Y(l.board),f=s[o][n];let a=l.status,I=l.startedAt,M=l.revealedCount,E=l.flagCount,h=l.explodedCell;return a==="ready"&&(a="playing",I=t),f.hasMine?(f.revealed=!0,fe(s),a="lost",h={row:o,col:n}):(M+=ae(l,s,{row:o,col:n}),M===e.rows*e.cols-e.mineCount&&(a="won",E=de(s))),{...l,board:s,status:a,startedAt:I,revealedCount:M,flagCount:E,explodedCell:h}}function ge(e,o,n){if(!L(e,o,n)||e.status==="won"||e.status==="lost"||e.board[o][n].revealed)return e;const r=Y(e.board),i=r[o][n];i.flagged=!i.flagged;const l=e.flagCount+(i.flagged?1:-1);return{...e,board:r,flagCount:Q(l)}}function he(e){return V(e.rows,e.cols,e.mineCount)}function y(e,o=Date.now()){if(e.status!=="playing"||e.startedAt===null)return e;const n=Math.floor((o-e.startedAt)/1e3),t=Q(n);return t===e.elapsedSeconds?e:{...e,elapsedSeconds:t}}const $=56,q=24,k=32,v=12,N=82,B=36,P=40;function be(e,o){const n=v,t=v+$+q+v,r=n*2+o*k,i=t+e*k+v;return{hudHeight:$,infoHeight:q,cellSize:k,boardX:n,boardY:t,padding:v,width:r,height:i}}function pe(e){const o=e.padding+(e.hudHeight-B)/2,n=e.padding+(e.hudHeight-P)/2;return{mineCounter:{x:e.padding,y:o,width:N,height:B},timer:{x:e.width-e.padding-N,y:o,width:N,height:B},reset:{x:(e.width-P)/2,y:n,width:P,height:P}}}function me(e){const o=Math.max(-99,Math.min(999,e));return o<0?`-${Math.abs(o).toString().padStart(2,"0")}`:o.toString().padStart(3,"0")}const we={1:"#2348cd",2:"#287a31",3:"#b72f2f",4:"#132170",5:"#732121",6:"#1a7f86",7:"#1f1f1f",8:"#686868"};function H(e,o,n,t,r,i){e.fillStyle=i,e.fillRect(o,n,t,r),e.strokeStyle="#f7f7f7",e.beginPath(),e.moveTo(o+t,n),e.lineTo(o,n),e.lineTo(o,n+r),e.stroke(),e.strokeStyle="#7b7b7b",e.beginPath(),e.moveTo(o+t,n),e.lineTo(o+t,n+r),e.lineTo(o,n+r),e.stroke()}function R(e,o,n,t,r,i){e.fillStyle=i,e.fillRect(o,n,t,r),e.strokeStyle="#7b7b7b",e.beginPath(),e.moveTo(o+t,n),e.lineTo(o,n),e.lineTo(o,n+r),e.stroke(),e.strokeStyle="#f7f7f7",e.beginPath(),e.moveTo(o+t,n),e.lineTo(o+t,n+r),e.lineTo(o,n+r),e.stroke()}function K(e,o,n,t,r,i){R(e,o,n,t,r,"#141414"),e.fillStyle="#d71e1e",e.font='700 26px "Courier New", monospace',e.textAlign="center",e.textBaseline="middle",e.fillText(me(i),o+t/2,n+r/2+1)}function Se(e){return e==="won"?"🥳":e==="lost"?"🤯":"😄"}function Te(e){return e===null?"--":`${Math.max(0,Math.floor(e))}s`}function Me(e,o,n,t,r){const i=o+t*.48,l=n+t*.25,s=n+t*.75;e.strokeStyle="#151515",e.lineWidth=2,e.beginPath(),e.moveTo(i,l),e.lineTo(i,s),e.stroke(),e.fillStyle="#d23636",e.beginPath(),e.moveTo(i,l),e.lineTo(i+t*.28,n+t*.36),e.lineTo(i,n+t*.47),e.closePath(),e.fill(),e.fillStyle="#151515",e.fillRect(i-t*.15,s,t*.3,t*.08),r&&(e.strokeStyle="#b61f1f",e.lineWidth=2.5,e.beginPath(),e.moveTo(o+t*.2,n+t*.2),e.lineTo(o+t*.8,n+t*.8),e.moveTo(o+t*.8,n+t*.2),e.lineTo(o+t*.2,n+t*.8),e.stroke()),e.lineWidth=1}function Z(e,o,n,t){const r=o+t/2,i=n+t/2,l=t*.22;e.fillStyle="#101010",e.beginPath(),e.arc(r,i,l,0,Math.PI*2),e.fill(),e.strokeStyle="#101010",e.lineWidth=1.5;for(let s=0;s<8;s+=1){const f=Math.PI*2*s/8;e.beginPath(),e.moveTo(r+Math.cos(f)*(l+1),i+Math.sin(f)*(l+1)),e.lineTo(r+Math.cos(f)*(l+6),i+Math.sin(f)*(l+6)),e.stroke()}e.lineWidth=1}function Ce(e,o,n){return(e==null?void 0:e.row)===o&&(e==null?void 0:e.col)===n}function Ee(e,o,n,t,r){var M,E;e.clearRect(0,0,n.width,n.height),e.fillStyle="#bcbcbc",e.fillRect(0,0,n.width,n.height),H(e,1,1,n.width-2,n.height-2,"#bcbcbc"),H(e,n.padding-4,n.padding-4,n.width-n.padding*2+8,n.hudHeight+n.infoHeight+8,"#bcbcbc"),K(e,t.mineCounter.x,t.mineCounter.y,t.mineCounter.width,t.mineCounter.height,o.mineCount-o.flagCount),K(e,t.timer.x,t.timer.y,t.timer.width,t.timer.height,o.elapsedSeconds);const i=r.pressedReset?"#a6a6a6":"#d3d3d3";r.pressedReset?R(e,t.reset.x,t.reset.y,t.reset.width,t.reset.height,i):H(e,t.reset.x,t.reset.y,t.reset.width,t.reset.height,i),e.fillStyle="#1a1a1a",e.font='700 26px "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "EmojiOne Color", sans-serif',e.textAlign="center",e.textBaseline="middle",e.fillText(Se(o.status),t.reset.x+t.reset.width/2,t.reset.y+t.reset.height/2+2);const l=n.padding+n.hudHeight,s=n.width-n.padding*2;e.fillStyle="#bdbdbd",e.fillRect(n.padding,l,s,n.infoHeight),e.strokeStyle="#8b8b8b",e.beginPath(),e.moveTo(n.padding,l+.5),e.lineTo(n.width-n.padding,l+.5),e.stroke(),e.fillStyle="#2a2a2a",e.font='700 13px "Trebuchet MS", sans-serif',e.textAlign="center",e.textBaseline="middle";const f=`BEST: ${Te(r.bestScoreSeconds)}`;e.fillText(f,n.width/2,n.padding+n.hudHeight+n.infoHeight/2);const a=o.cols*n.cellSize,I=o.rows*n.cellSize;R(e,n.boardX-4,n.boardY-4,a+8,I+8,"#bcbcbc");for(let h=0;h<o.rows;h+=1)for(let S=0;S<o.cols;S+=1){const p=o.board[h][S],m=n.boardX+S*n.cellSize,w=n.boardY+h*n.cellSize,c=n.cellSize;if(p.revealed){const U=((M=o.explodedCell)==null?void 0:M.row)===h&&((E=o.explodedCell)==null?void 0:E.col)===S;if(e.fillStyle=U?"#e66868":"#cdcdcd",e.fillRect(m,w,c,c),e.strokeStyle="#9a9a9a",e.strokeRect(m+.5,w+.5,c-1,c-1),p.hasMine)Z(e,m,w,c);else if(p.adjacentMines>0){const D=we[p.adjacentMines]??"#1f1f1f";e.fillStyle=D,e.font='700 20px "Trebuchet MS", sans-serif',e.textAlign="center",e.textBaseline="middle",e.fillText(String(p.adjacentMines),m+c/2,w+c/2+1)}}else if(Ce(r.pressedCell,h,S)?R(e,m,w,c,c,"#b7b7b7"):H(e,m,w,c,c,"#c7c7c7"),p.flagged){const D=o.status==="lost"&&!p.hasMine;Me(e,m,w,c,D)}else o.status==="lost"&&p.hasMine&&Z(e,m,w,c)}}const j=9,F=9,z=10,x=`minesweeper.best.${j}x${F}.${z}`;function ve(){try{const e=localStorage.getItem(x);if(e===null)return null;const o=Number(e);return!Number.isFinite(o)||o<0?null:Math.floor(o)}catch{return null}}function Ie(e){try{localStorage.setItem(x,String(Math.floor(e)))}catch{}}const ee=document.querySelector("#app");if(!ee)throw new Error("Could not find #app container");const u=document.createElement("canvas"),T=be(j,F);u.width=T.width;u.height=T.height;u.setAttribute("aria-label","Minesweeper game board");ee.appendChild(u);const ne=u.getContext("2d");if(!ne)throw new Error("Could not create canvas 2D context");const Pe=ne;let d=V(j,F,z);const W=pe(T);let g=null,C=!1,A=ve();function He(e,o){if(e.status==="won"||o.status!=="won")return;const n=o.elapsedSeconds;(A===null||n<A)&&(A=n,Ie(n))}function b(){Ee(Pe,d,T,W,{pressedCell:g,pressedReset:C,bestScoreSeconds:A})}b();const Re=window.setInterval(()=>{const e=y(d,Date.now());e!==d&&(d=e,b())},200);window.addEventListener("beforeunload",()=>{window.clearInterval(Re)});u.addEventListener("mousedown",e=>{const o=O(e,u);if(e.button===0){if(J(W,o.x,o.y)==="reset"){C=!0,g=null,b();return}const t=_(d,T,o.x,o.y);if(!t)return;const r=d.board[t.row][t.col];d.status!=="won"&&d.status!=="lost"&&!r.revealed&&!r.flagged&&(g=t,b())}});u.addEventListener("mouseup",e=>{const o=O(e,u);if(e.button===0){if(C){J(W,o.x,o.y)==="reset"&&(d=he(d)),C=!1,g=null,b();return}const n=_(d,T,o.x,o.y);if(n&&g&&n.row===g.row&&n.col===g.col){const t=d;d=ue(d,n.row,n.col,Date.now()),d=y(d,Date.now()),He(t,d),b()}g=null,b()}});u.addEventListener("mouseleave",()=>{(g||C)&&(g=null,C=!1,b())});u.addEventListener("contextmenu",e=>{e.preventDefault();const o=O(e,u),n=_(d,T,o.x,o.y);n&&(d=ge(d,n.row,n.col),b())});
+(function () {
+  const o = document.createElement("link").relList;
+  if (o && o.supports && o.supports("modulepreload")) return;
+  for (const r of document.querySelectorAll('link[rel="modulepreload"]')) t(r);
+  new MutationObserver((r) => {
+    for (const i of r)
+      if (i.type === "childList")
+        for (const l of i.addedNodes) l.tagName === "LINK" && l.rel === "modulepreload" && t(l);
+  }).observe(document, { childList: !0, subtree: !0 });
+  function n(r) {
+    const i = {};
+    return (
+      r.integrity && (i.integrity = r.integrity),
+      r.referrerPolicy && (i.referrerPolicy = r.referrerPolicy),
+      r.crossOrigin === "use-credentials"
+        ? (i.credentials = "include")
+        : r.crossOrigin === "anonymous"
+        ? (i.credentials = "omit")
+        : (i.credentials = "same-origin"),
+      i
+    );
+  }
+  function t(r) {
+    if (r.ep) return;
+    r.ep = !0;
+    const i = n(r);
+    fetch(r.href, i);
+  }
+})();
+function O(e, o) {
+  const n = o.getBoundingClientRect();
+  return { x: ((e.clientX - n.left) * o.width) / n.width, y: ((e.clientY - n.top) * o.height) / n.height };
+}
+function oe(e, o, n) {
+  return e >= n.x && e < n.x + n.width && o >= n.y && o < n.y + n.height;
+}
+function _(e, o, n, t) {
+  const r = e.cols * o.cellSize,
+    i = e.rows * o.cellSize;
+  if (n < o.boardX || n >= o.boardX + r || t < o.boardY || t >= o.boardY + i) return null;
+  const l = Math.floor((n - o.boardX) / o.cellSize),
+    s = Math.floor((t - o.boardY) / o.cellSize);
+  return s < 0 || s >= e.rows || l < 0 || l >= e.cols ? null : { row: s, col: l };
+}
+function J(e, o, n) {
+  return oe(o, n, e.reset) ? "reset" : null;
+}
+const X = 999,
+  G = -99;
+function te() {
+  return { hasMine: !1, adjacentMines: 0, revealed: !1, flagged: !1 };
+}
+function re(e, o) {
+  return Array.from({ length: e }, () => Array.from({ length: o }, () => te()));
+}
+function Y(e) {
+  return e.map((o) => o.map((n) => ({ ...n })));
+}
+function L(e, o, n) {
+  return o >= 0 && o < e.rows && n >= 0 && n < e.cols;
+}
+function ie(e, o, n) {
+  const t = [];
+  for (let r = o - 1; r <= o + 1; r += 1)
+    for (let i = n - 1; i <= n + 1; i += 1) (r === o && i === n) || (L(e, r, i) && t.push({ row: r, col: i }));
+  return t;
+}
+function le(e) {
+  var t;
+  const o = e.length,
+    n = ((t = e[0]) == null ? void 0 : t.length) ?? 0;
+  for (let r = 0; r < o; r += 1)
+    for (let i = 0; i < n; i += 1) {
+      if (e[r][i].hasMine) {
+        e[r][i].adjacentMines = 0;
+        continue;
+      }
+      let l = 0;
+      for (let s = r - 1; s <= r + 1; s += 1)
+        for (let f = i - 1; f <= i + 1; f += 1)
+          (s === r && f === i) || s < 0 || s >= o || f < 0 || f >= n || (e[s][f].hasMine && (l += 1));
+      e[r][i].adjacentMines = l;
+    }
+}
+function se(e, o, n, t, r, i) {
+  const l = [];
+  for (let s = 0; s < e; s += 1) for (let f = 0; f < o; f += 1) (s === t && f === r) || l.push({ row: s, col: f });
+  for (let s = l.length - 1; s > 0; s -= 1) {
+    const f = Math.floor(i() * (s + 1)),
+      a = l[s];
+    (l[s] = l[f]), (l[f] = a);
+  }
+  return l.slice(0, n);
+}
+function fe(e) {
+  for (const o of e) for (const n of o) n.hasMine && (n.revealed = !0);
+}
+function de(e) {
+  let o = 0;
+  for (const n of e) for (const t of n) t.hasMine && (t.flagged || (t.flagged = !0), (o += 1));
+  return o;
+}
+function ae(e, o, n) {
+  const t = [n];
+  let r = 0;
+  for (; t.length > 0; ) {
+    const i = t.pop();
+    if (!i) continue;
+    const l = o[i.row][i.col];
+    if (l.revealed || l.flagged || ((l.revealed = !0), (r += 1), l.adjacentMines !== 0)) continue;
+    const s = ie(e, i.row, i.col);
+    for (const f of s) {
+      const a = o[f.row][f.col];
+      !a.revealed && !a.flagged && !a.hasMine && t.push(f);
+    }
+  }
+  return r;
+}
+function Q(e) {
+  return e > X ? X : e < G ? G : e;
+}
+function V(e, o, n) {
+  if (e <= 0 || o <= 0) throw new Error("rows and cols must be positive");
+  if (n < 0 || n >= e * o) throw new Error("mineCount must be between 0 and rows*cols - 1");
+  return {
+    rows: e,
+    cols: o,
+    mineCount: n,
+    board: re(e, o),
+    status: "ready",
+    revealedCount: 0,
+    flagCount: 0,
+    startedAt: null,
+    elapsedSeconds: 0,
+    firstClickSafe: !0,
+    minesPlanted: !1,
+    explodedCell: null,
+  };
+}
+function ce(e, o, n, t = Math.random) {
+  if (e.minesPlanted || !L(e, o, n)) return e;
+  const r = Y(e.board),
+    i = se(e.rows, e.cols, e.mineCount, o, n, t);
+  for (const l of i) r[l.row][l.col].hasMine = !0;
+  return le(r), { ...e, board: r, minesPlanted: !0 };
+}
+function ue(e, o, n, t = Date.now(), r = Math.random) {
+  if (!L(e, o, n) || e.status === "won" || e.status === "lost") return e;
+  const i = e.board[o][n];
+  if (i.revealed || i.flagged) return e;
+  let l = e;
+  l.minesPlanted || (l = ce(l, o, n, r));
+  const s = Y(l.board),
+    f = s[o][n];
+  let a = l.status,
+    I = l.startedAt,
+    M = l.revealedCount,
+    E = l.flagCount,
+    h = l.explodedCell;
+  return (
+    a === "ready" && ((a = "playing"), (I = t)),
+    f.hasMine
+      ? ((f.revealed = !0), fe(s), (a = "lost"), (h = { row: o, col: n }))
+      : ((M += ae(l, s, { row: o, col: n })), M === e.rows * e.cols - e.mineCount && ((a = "won"), (E = de(s)))),
+    { ...l, board: s, status: a, startedAt: I, revealedCount: M, flagCount: E, explodedCell: h }
+  );
+}
+function ge(e, o, n) {
+  if (!L(e, o, n) || e.status === "won" || e.status === "lost" || e.board[o][n].revealed) return e;
+  const r = Y(e.board),
+    i = r[o][n];
+  i.flagged = !i.flagged;
+  const l = e.flagCount + (i.flagged ? 1 : -1);
+  return { ...e, board: r, flagCount: Q(l) };
+}
+function he(e) {
+  return V(e.rows, e.cols, e.mineCount);
+}
+function y(e, o = Date.now()) {
+  if (e.status !== "playing" || e.startedAt === null) return e;
+  const n = Math.floor((o - e.startedAt) / 1e3),
+    t = Q(n);
+  return t === e.elapsedSeconds ? e : { ...e, elapsedSeconds: t };
+}
+const $ = 56,
+  q = 24,
+  k = 32,
+  v = 12,
+  N = 82,
+  B = 36,
+  P = 40;
+function be(e, o) {
+  const n = v,
+    t = v + $ + q + v,
+    r = n * 2 + o * k,
+    i = t + e * k + v;
+  return { hudHeight: $, infoHeight: q, cellSize: k, boardX: n, boardY: t, padding: v, width: r, height: i };
+}
+function pe(e) {
+  const o = e.padding + (e.hudHeight - B) / 2,
+    n = e.padding + (e.hudHeight - P) / 2;
+  return {
+    mineCounter: { x: e.padding, y: o, width: N, height: B },
+    timer: { x: e.width - e.padding - N, y: o, width: N, height: B },
+    reset: { x: (e.width - P) / 2, y: n, width: P, height: P },
+  };
+}
+function me(e) {
+  const o = Math.max(-99, Math.min(999, e));
+  return o < 0 ? `-${Math.abs(o).toString().padStart(2, "0")}` : o.toString().padStart(3, "0");
+}
+const we = {
+  1: "#2348cd",
+  2: "#287a31",
+  3: "#b72f2f",
+  4: "#132170",
+  5: "#732121",
+  6: "#1a7f86",
+  7: "#1f1f1f",
+  8: "#686868",
+};
+function H(e, o, n, t, r, i) {
+  (e.fillStyle = i),
+    e.fillRect(o, n, t, r),
+    (e.strokeStyle = "#f7f7f7"),
+    e.beginPath(),
+    e.moveTo(o + t, n),
+    e.lineTo(o, n),
+    e.lineTo(o, n + r),
+    e.stroke(),
+    (e.strokeStyle = "#7b7b7b"),
+    e.beginPath(),
+    e.moveTo(o + t, n),
+    e.lineTo(o + t, n + r),
+    e.lineTo(o, n + r),
+    e.stroke();
+}
+function R(e, o, n, t, r, i) {
+  (e.fillStyle = i),
+    e.fillRect(o, n, t, r),
+    (e.strokeStyle = "#7b7b7b"),
+    e.beginPath(),
+    e.moveTo(o + t, n),
+    e.lineTo(o, n),
+    e.lineTo(o, n + r),
+    e.stroke(),
+    (e.strokeStyle = "#f7f7f7"),
+    e.beginPath(),
+    e.moveTo(o + t, n),
+    e.lineTo(o + t, n + r),
+    e.lineTo(o, n + r),
+    e.stroke();
+}
+function K(e, o, n, t, r, i) {
+  R(e, o, n, t, r, "#141414"),
+    (e.fillStyle = "#d71e1e"),
+    (e.font = '700 26px "Courier New", monospace'),
+    (e.textAlign = "center"),
+    (e.textBaseline = "middle"),
+    e.fillText(me(i), o + t / 2, n + r / 2 + 1);
+}
+function Se(e) {
+  return e === "won" ? "🥳" : e === "lost" ? "🤯" : "😄";
+}
+function Te(e) {
+  return e === null ? "--" : `${Math.max(0, Math.floor(e))}s`;
+}
+function Me(e, o, n, t, r) {
+  const i = o + t * 0.48,
+    l = n + t * 0.25,
+    s = n + t * 0.75;
+  (e.strokeStyle = "#151515"),
+    (e.lineWidth = 2),
+    e.beginPath(),
+    e.moveTo(i, l),
+    e.lineTo(i, s),
+    e.stroke(),
+    (e.fillStyle = "#d23636"),
+    e.beginPath(),
+    e.moveTo(i, l),
+    e.lineTo(i + t * 0.28, n + t * 0.36),
+    e.lineTo(i, n + t * 0.47),
+    e.closePath(),
+    e.fill(),
+    (e.fillStyle = "#151515"),
+    e.fillRect(i - t * 0.15, s, t * 0.3, t * 0.08),
+    r &&
+      ((e.strokeStyle = "#b61f1f"),
+      (e.lineWidth = 2.5),
+      e.beginPath(),
+      e.moveTo(o + t * 0.2, n + t * 0.2),
+      e.lineTo(o + t * 0.8, n + t * 0.8),
+      e.moveTo(o + t * 0.8, n + t * 0.2),
+      e.lineTo(o + t * 0.2, n + t * 0.8),
+      e.stroke()),
+    (e.lineWidth = 1);
+}
+function Z(e, o, n, t) {
+  const r = o + t / 2,
+    i = n + t / 2,
+    l = t * 0.22;
+  (e.fillStyle = "#101010"),
+    e.beginPath(),
+    e.arc(r, i, l, 0, Math.PI * 2),
+    e.fill(),
+    (e.strokeStyle = "#101010"),
+    (e.lineWidth = 1.5);
+  for (let s = 0; s < 8; s += 1) {
+    const f = (Math.PI * 2 * s) / 8;
+    e.beginPath(),
+      e.moveTo(r + Math.cos(f) * (l + 1), i + Math.sin(f) * (l + 1)),
+      e.lineTo(r + Math.cos(f) * (l + 6), i + Math.sin(f) * (l + 6)),
+      e.stroke();
+  }
+  e.lineWidth = 1;
+}
+function Ce(e, o, n) {
+  return (e == null ? void 0 : e.row) === o && (e == null ? void 0 : e.col) === n;
+}
+function Ee(e, o, n, t, r) {
+  var M, E;
+  e.clearRect(0, 0, n.width, n.height),
+    (e.fillStyle = "#bcbcbc"),
+    e.fillRect(0, 0, n.width, n.height),
+    H(e, 1, 1, n.width - 2, n.height - 2, "#bcbcbc"),
+    H(e, n.padding - 4, n.padding - 4, n.width - n.padding * 2 + 8, n.hudHeight + n.infoHeight + 8, "#bcbcbc"),
+    K(e, t.mineCounter.x, t.mineCounter.y, t.mineCounter.width, t.mineCounter.height, o.mineCount - o.flagCount),
+    K(e, t.timer.x, t.timer.y, t.timer.width, t.timer.height, o.elapsedSeconds);
+  const i = r.pressedReset ? "#a6a6a6" : "#d3d3d3";
+  r.pressedReset
+    ? R(e, t.reset.x, t.reset.y, t.reset.width, t.reset.height, i)
+    : H(e, t.reset.x, t.reset.y, t.reset.width, t.reset.height, i),
+    (e.fillStyle = "#1a1a1a"),
+    (e.font = '700 26px "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "EmojiOne Color", sans-serif'),
+    (e.textAlign = "center"),
+    (e.textBaseline = "middle"),
+    e.fillText(Se(o.status), t.reset.x + t.reset.width / 2, t.reset.y + t.reset.height / 2 + 2);
+  const l = n.padding + n.hudHeight,
+    s = n.width - n.padding * 2;
+  (e.fillStyle = "#bdbdbd"),
+    e.fillRect(n.padding, l, s, n.infoHeight),
+    (e.strokeStyle = "#8b8b8b"),
+    e.beginPath(),
+    e.moveTo(n.padding, l + 0.5),
+    e.lineTo(n.width - n.padding, l + 0.5),
+    e.stroke(),
+    (e.fillStyle = "#2a2a2a"),
+    (e.font = '700 13px "Trebuchet MS", sans-serif'),
+    (e.textAlign = "center"),
+    (e.textBaseline = "middle");
+  const f = `BEST: ${Te(r.bestScoreSeconds)}`;
+  e.fillText(f, n.width / 2, n.padding + n.hudHeight + n.infoHeight / 2);
+  const a = o.cols * n.cellSize,
+    I = o.rows * n.cellSize;
+  R(e, n.boardX - 4, n.boardY - 4, a + 8, I + 8, "#bcbcbc");
+  for (let h = 0; h < o.rows; h += 1)
+    for (let S = 0; S < o.cols; S += 1) {
+      const p = o.board[h][S],
+        m = n.boardX + S * n.cellSize,
+        w = n.boardY + h * n.cellSize,
+        c = n.cellSize;
+      if (p.revealed) {
+        const U =
+          ((M = o.explodedCell) == null ? void 0 : M.row) === h &&
+          ((E = o.explodedCell) == null ? void 0 : E.col) === S;
+        if (
+          ((e.fillStyle = U ? "#e66868" : "#cdcdcd"),
+          e.fillRect(m, w, c, c),
+          (e.strokeStyle = "#9a9a9a"),
+          e.strokeRect(m + 0.5, w + 0.5, c - 1, c - 1),
+          p.hasMine)
+        )
+          Z(e, m, w, c);
+        else if (p.adjacentMines > 0) {
+          const D = we[p.adjacentMines] ?? "#1f1f1f";
+          (e.fillStyle = D),
+            (e.font = '700 20px "Trebuchet MS", sans-serif'),
+            (e.textAlign = "center"),
+            (e.textBaseline = "middle"),
+            e.fillText(String(p.adjacentMines), m + c / 2, w + c / 2 + 1);
+        }
+      } else if ((Ce(r.pressedCell, h, S) ? R(e, m, w, c, c, "#b7b7b7") : H(e, m, w, c, c, "#c7c7c7"), p.flagged)) {
+        const D = o.status === "lost" && !p.hasMine;
+        Me(e, m, w, c, D);
+      } else o.status === "lost" && p.hasMine && Z(e, m, w, c);
+    }
+}
+const j = 9,
+  F = 9,
+  z = 10,
+  x = `minesweeper.best.${j}x${F}.${z}`;
+function ve() {
+  try {
+    const e = localStorage.getItem(x);
+    if (e === null) return null;
+    const o = Number(e);
+    return !Number.isFinite(o) || o < 0 ? null : Math.floor(o);
+  } catch {
+    return null;
+  }
+}
+function Ie(e) {
+  try {
+    localStorage.setItem(x, String(Math.floor(e)));
+  } catch {}
+}
+const ee = document.querySelector("#app");
+if (!ee) throw new Error("Could not find #app container");
+const u = document.createElement("canvas"),
+  T = be(j, F);
+u.width = T.width;
+u.height = T.height;
+u.setAttribute("aria-label", "Minesweeper game board");
+ee.appendChild(u);
+const ne = u.getContext("2d");
+if (!ne) throw new Error("Could not create canvas 2D context");
+const Pe = ne;
+let d = V(j, F, z);
+const W = pe(T);
+let g = null,
+  C = !1,
+  A = ve();
+function He(e, o) {
+  if (e.status === "won" || o.status !== "won") return;
+  const n = o.elapsedSeconds;
+  (A === null || n < A) && ((A = n), Ie(n));
+}
+function b() {
+  Ee(Pe, d, T, W, { pressedCell: g, pressedReset: C, bestScoreSeconds: A });
+}
+b();
+const Re = window.setInterval(() => {
+  const e = y(d, Date.now());
+  e !== d && ((d = e), b());
+}, 200);
+window.addEventListener("beforeunload", () => {
+  window.clearInterval(Re);
+});
+u.addEventListener("mousedown", (e) => {
+  const o = O(e, u);
+  if (e.button === 0) {
+    if (J(W, o.x, o.y) === "reset") {
+      (C = !0), (g = null), b();
+      return;
+    }
+    const t = _(d, T, o.x, o.y);
+    if (!t) return;
+    const r = d.board[t.row][t.col];
+    d.status !== "won" && d.status !== "lost" && !r.revealed && !r.flagged && ((g = t), b());
+  }
+});
+u.addEventListener("mouseup", (e) => {
+  const o = O(e, u);
+  if (e.button === 0) {
+    if (C) {
+      J(W, o.x, o.y) === "reset" && (d = he(d)), (C = !1), (g = null), b();
+      return;
+    }
+    const n = _(d, T, o.x, o.y);
+    if (n && g && n.row === g.row && n.col === g.col) {
+      const t = d;
+      (d = ue(d, n.row, n.col, Date.now())), (d = y(d, Date.now())), He(t, d), b();
+    }
+    (g = null), b();
+  }
+});
+u.addEventListener("mouseleave", () => {
+  (g || C) && ((g = null), (C = !1), b());
+});
+u.addEventListener("contextmenu", (e) => {
+  e.preventDefault();
+  const o = O(e, u),
+    n = _(d, T, o.x, o.y);
+  n && ((d = ge(d, n.row, n.col)), b());
+});
