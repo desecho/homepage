@@ -1,6 +1,6 @@
 /* ===== CSS Custom Properties (Light Theme) ===== */
 :root {
-  --bg-gradient: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+  --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   --container-bg: rgba(255, 255, 255, 0.95);
   --container-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   --container-radius: 20px;
@@ -12,10 +12,10 @@
   --link-color: #34495e;
   --link-bg: rgba(255, 255, 255, 0.7);
   --link-border: 1px solid rgba(0, 0, 0, 0.05);
-  --link-hover-bg: rgba(247, 151, 30, 0.1);
-  --link-hover-color: #e08600;
+  --link-hover-bg: rgba(116, 75, 162, 0.1);
+  --link-hover-color: #764ba2;
   --link-hover-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  --link-hover-border-color: rgba(247, 151, 30, 0.2);
+  --link-hover-border-color: rgba(116, 75, 162, 0.2);
   --img-filter: none;
   --toggle-bg: rgba(255, 255, 255, 0.9);
   --toggle-color: #333;
