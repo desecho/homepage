@@ -1,98 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <title>Arcade Games</title>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Games</title>
-    <link href="style.css" rel="stylesheet" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap" rel="stylesheet" />
+    <link href="../style.css" rel="stylesheet" />
   </head>
   <body>
-    <main class="container">
-      <h1>Games</h1>
-      <p class="subtitle">Pick a game to play.</p>
-      <section class="game-section">
-        <h2>Single Player Games</h2>
-        <ul class="game-list">
-          <li>
-            <a href="snake/" class="game-link">
-              <span class="game-title">Snake</span>
-              <span class="game-description">Classic arcade snake</span>
-            </a>
-          </li>
-          <li>
-            <a href="minesweeper/" class="game-link">
-              <span class="game-title">Minesweeper</span>
-              <span class="game-description">Reveal tiles and avoid hidden mines</span>
-            </a>
-          </li>
-          <li>
-            <a href="whack-a-mole/" class="game-link">
-              <span class="game-title">Whack-a-Mole</span>
-              <span class="game-description">Tap moles before time runs out</span>
-            </a>
-          </li>
-          <li>
-            <a href="tetris/" class="game-link">
-              <span class="game-title">Tetris</span>
-              <span class="game-description">Stack blocks and clear lines</span>
-            </a>
-          </li>
-          <li>
-            <a href="chicken-run/" class="game-link">
-              <span class="game-title">Chicken Run</span>
-              <span class="game-description">Jump over obstacles and survive</span>
-            </a>
-          </li>
-          <li>
-            <a href="asteroids/" class="game-link">
-              <span class="game-title">Asteroids</span>
-              <span class="game-description">Blast asteroids and survive in space</span>
-            </a>
-          </li>
-          <li>
-            <a href="torpedo-strike/" class="game-link">
-              <span class="game-title">Torpedo Strike</span>
-              <span class="game-description">Navigate the depths and strike enemy targets</span>
-            </a>
-          </li>
-          <li>
-            <a href="flappy-bird/" class="game-link">
-              <span class="game-title">Flappy Bird</span>
-              <span class="game-description">Flap through pipes and chase a high score</span>
-            </a>
-          </li>
-        </ul>
-      </section>
-
-      <section class="game-section">
-        <h2>Multiplayer Games</h2>
-        <ul class="game-list">
-          <li>
-            <a href="https://pong.samarchyan.me" class="game-link" target="_blank" rel="noopener noreferrer">
-              <span class="game-title">Pong</span>
-              <span class="game-description">Play head-to-head pong online</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://helifight.samarchyan.me" class="game-link" target="_blank" rel="noopener noreferrer">
-              <span class="game-title">Helifight</span>
-              <span class="game-description">Battle a friend in helicopter duels</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://scorched-earth.samarchyan.me/" class="game-link" target="_blank" rel="noopener noreferrer">
-              <span class="game-title">Scorched Earth</span>
-              <span class="game-description">Trade artillery shots in turn-based battles</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://volleyball.samarchyan.me" class="game-link" target="_blank" rel="noopener noreferrer">
-              <span class="game-title">Volleyball</span>
-              <span class="game-description">Serve and spike in online volleyball matches</span>
-            </a>
-          </li>
-        </ul>
-      </section>
-    </main>
+    <button class="theme-toggle" id="theme-toggle" title="Toggle terminal theme" aria-label="Toggle terminal theme">
+      <span class="toggle-icon-light">&gt;_</span>
+      <span class="toggle-icon-terminal" style="display: none">&#9788;</span>
+    </button>
+    <div class="container">
+      <div class="row">
+        <div class="col-md col-sm col-xs">
+          <h3>Single Player Games</h3>
+          <ul>
+            <li>
+              <a href="snake/">Snake — Classic arcade snake</a>
+            </li>
+            <li>
+              <a href="minesweeper/">Minesweeper — Reveal tiles and avoid hidden mines</a>
+            </li>
+            <li>
+              <a href="whack-a-mole/">Whack-a-Mole — Tap moles before time runs out</a>
+            </li>
+            <li>
+              <a href="tetris/">Tetris — Stack blocks and clear lines</a>
+            </li>
+            <li>
+              <a href="chicken-run/">Chicken Run — Jump over obstacles and survive</a>
+            </li>
+            <li>
+              <a href="asteroids/">Asteroids — Blast asteroids and survive in space</a>
+            </li>
+            <li>
+              <a href="torpedo-strike/">Torpedo Strike — Navigate the depths and strike enemy targets</a>
+            </li>
+            <li>
+              <a href="flappy-bird/">Flappy Bird — Flap through pipes and chase a high score</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md col-sm col-xs">
+          <h3>Multiplayer Games</h3>
+          <ul>
+            <li>
+              <a href="https://pong.samarchyan.me" target="_blank">Pong — Play head-to-head pong online</a>
+            </li>
+            <li>
+              <a href="https://helifight.samarchyan.me" target="_blank">Helifight — Battle a friend in helicopter duels</a>
+            </li>
+            <li>
+              <a href="https://scorched-earth.samarchyan.me/" target="_blank">Scorched Earth — Trade artillery shots in turn-based battles</a>
+            </li>
+            <li>
+              <a href="https://volleyball.samarchyan.me" target="_blank">Volleyball — Serve and spike in online volleyball matches</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <script>
+      (function () {
+        var btn = document.getElementById("theme-toggle");
+        var lightIcon = btn.querySelector(".toggle-icon-light");
+        var terminalIcon = btn.querySelector(".toggle-icon-terminal");
+        btn.addEventListener("click", function () {
+          var html = document.documentElement;
+          var isTerminal = html.getAttribute("data-theme") === "terminal";
+          if (isTerminal) {
+            html.removeAttribute("data-theme");
+            lightIcon.style.display = "";
+            terminalIcon.style.display = "none";
+          } else {
+            html.setAttribute("data-theme", "terminal");
+            lightIcon.style.display = "none";
+            terminalIcon.style.display = "";
+          }
+        });
+      })();
+    </script>
   </body>
 </html>
