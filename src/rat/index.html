@@ -14,6 +14,10 @@
     <link href="../style.css" rel="stylesheet" />
   </head>
   <body>
+    <button class="theme-toggle" id="theme-toggle" title="Toggle terminal theme" aria-label="Toggle terminal theme">
+      <span class="toggle-icon-light">&gt;_</span>
+      <span class="toggle-icon-terminal" style="display: none">&#9788;</span>
+    </button>
     <div class="container">
       <div class="row">
         <div class="col-md-8 offset-md-2">
@@ -34,5 +38,25 @@
         </div>
       </div>
     </div>
+    <script>
+      (function () {
+        var btn = document.getElementById("theme-toggle");
+        var lightIcon = btn.querySelector(".toggle-icon-light");
+        var terminalIcon = btn.querySelector(".toggle-icon-terminal");
+        btn.addEventListener("click", function () {
+          var html = document.documentElement;
+          var isTerminal = html.getAttribute("data-theme") === "terminal";
+          if (isTerminal) {
+            html.removeAttribute("data-theme");
+            lightIcon.style.display = "";
+            terminalIcon.style.display = "none";
+          } else {
+            html.setAttribute("data-theme", "terminal");
+            lightIcon.style.display = "none";
+            terminalIcon.style.display = "";
+          }
+        });
+      })();
+    </script>
   </body>
 </html>
