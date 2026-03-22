@@ -4,13 +4,6 @@
     <title>Arcade Games</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-      crossorigin="anonymous"
-    />
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap" rel="stylesheet" />
     <link href="../style.css" rel="stylesheet" />
   </head>
   <body>
@@ -18,53 +11,35 @@
       <span class="toggle-icon-light">&gt;_</span>
       <span class="toggle-icon-terminal" style="display: none">&#9788;</span>
     </button>
-    <div class="container">
-      <a href="../">&larr; Home</a>
-      <div class="row">
-        <div class="col-md col-sm col-xs">
-          <h3>Single Player Games</h3>
-          <ul>
-            <li>
-              <a href="snake/">Snake — Classic arcade snake</a>
-            </li>
-            <li>
-              <a href="minesweeper/">Minesweeper — Reveal tiles and avoid hidden mines</a>
-            </li>
-            <li>
-              <a href="whack-a-mole/">Whack-a-Mole — Tap moles before time runs out</a>
-            </li>
-            <li>
-              <a href="tetris/">Tetris — Stack blocks and clear lines</a>
-            </li>
-            <li>
-              <a href="chicken-run/">Chicken Run — Jump over obstacles and survive</a>
-            </li>
-            <li>
-              <a href="asteroids/">Asteroids — Blast asteroids and survive in space</a>
-            </li>
-            <li>
-              <a href="torpedo-strike/">Torpedo Strike — Navigate the depths and strike enemy targets</a>
-            </li>
-            <li>
-              <a href="flappy-bird/">Flappy Bird — Flap through pipes and chase a high score</a>
-            </li>
+    <div class="page">
+      <header class="header">
+        <a href="../" class="back-link">&larr; Home</a>
+        <div class="header__name">Arcade Games</div>
+      </header>
+      <div class="grid" style="grid-template-columns: repeat(2, 1fr);">
+        <!-- Single Player -->
+        <div class="card">
+          <div class="card__label">Single Player</div>
+          <ul class="links">
+            <li><a href="snake/" target="_blank"><span>Snake — Classic arcade snake</span></a></li>
+            <li><a href="minesweeper/" target="_blank"><span>Minesweeper — Reveal tiles and avoid hidden mines</span></a></li>
+            <li><a href="whack-a-mole/" target="_blank"><span>Whack-a-Mole — Tap moles before time runs out</span></a></li>
+            <li><a href="tetris/" target="_blank"><span>Tetris — Stack blocks and clear lines</span></a></li>
+            <li><a href="chicken-run/" target="_blank"><span>Chicken Run — Jump over obstacles and survive</span></a></li>
+            <li><a href="asteroids/" target="_blank"><span>Asteroids — Blast asteroids and survive in space</span></a></li>
+            <li><a href="torpedo-strike/" target="_blank"><span>Torpedo Strike — Navigate the depths and strike enemy targets</span></a></li>
+            <li><a href="flappy-bird/" target="_blank"><span>Flappy Bird — Flap through pipes and chase a high score</span></a></li>
           </ul>
         </div>
-        <div class="col-md col-sm col-xs">
-          <h3>Multiplayer Games</h3>
-          <ul>
-            <li>
-              <a href="https://pong.samarchyan.me" target="_blank">Pong — Play head-to-head pong online</a>
-            </li>
-            <li>
-              <a href="https://helifight.samarchyan.me" target="_blank">Helifight — Battle a friend in helicopter duels</a>
-            </li>
-            <li>
-              <a href="https://scorched-earth.samarchyan.me/" target="_blank">Scorched Earth — Trade artillery shots in turn-based battles</a>
-            </li>
-            <li>
-              <a href="https://volleyball.samarchyan.me" target="_blank">Volleyball — Serve and spike in online volleyball matches</a>
-            </li>
+
+        <!-- Multiplayer -->
+        <div class="card">
+          <div class="card__label">Multiplayer</div>
+          <ul class="links">
+            <li><a href="https://pong.samarchyan.me" target="_blank"><span>Pong — Play head-to-head pong online</span></a></li>
+            <li><a href="https://helifight.samarchyan.me" target="_blank"><span>Helifight — Battle a friend in helicopter duels</span></a></li>
+            <li><a href="https://scorched-earth.samarchyan.me/" target="_blank"><span>Scorched Earth — Trade artillery shots in turn-based battles</span></a></li>
+            <li><a href="https://volleyball.samarchyan.me" target="_blank"><span>Volleyball — Serve and spike in online volleyball matches</span></a></li>
           </ul>
         </div>
       </div>

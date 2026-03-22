@@ -4,13 +4,6 @@
     <title>Rat</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-      crossorigin="anonymous"
-    />
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap" rel="stylesheet" />
     <link href="../style.css" rel="stylesheet" />
   </head>
   <body>
@@ -18,21 +11,23 @@
       <span class="toggle-icon-light">&gt;_</span>
       <span class="toggle-icon-terminal" style="display: none">&#9788;</span>
     </button>
-    <div class="container">
-      <a href="../">&larr; Home</a>
-      <div class="row">
-        <div class="col-md-8 offset-md-2">
-          <h3>Rat</h3>
-          <p>A desktop pet rat for macOS. It lives on your screen as a tiny pixel-art rat that walks, sleeps, eats, climbs screen edges, reacts to your cursor, and can be picked up and dropped. Available for ARM and x86 architectures.</p>
-          <ul>
+    <div class="page">
+      <header class="header">
+        <a href="../" class="back-link">&larr; Home</a>
+        <div class="header__name">Rat</div>
+      </header>
+      <div class="grid" style="grid-template-columns: 1fr; max-width: 600px; margin: 0 auto;">
+        <div class="card">
+          <p style="color: var(--text-secondary); margin-bottom: 1.25rem; line-height: 1.6;">A desktop pet rat for macOS. It lives on your screen as a tiny pixel-art rat that walks, sleeps, eats, climbs screen edges, reacts to your cursor, and can be picked up and dropped. Available for ARM and x86 architectures.</p>
+          <ul class="links">
             <li>
               <a href="https://cdn.samarchyan.me/rat/rat-arm.zip" target="_blank">
-                <img src="../img/rat.png" alt="Rat ARM" />rat-arm.zip (ARM)
+                <img src="../img/rat.png" alt="Rat ARM" /><span>rat-arm.zip (ARM)</span>
               </a>
             </li>
             <li>
               <a href="https://cdn.samarchyan.me/rat/rat-x86.zip" target="_blank">
-                <img src="../img/rat.png" alt="Rat x86" />rat-x86.zip (x86)
+                <img src="../img/rat.png" alt="Rat x86" /><span>rat-x86.zip (x86)</span>
               </a>
             </li>
           </ul>
