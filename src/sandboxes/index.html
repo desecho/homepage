@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>if(localStorage.getItem("theme")==="terminal")document.documentElement.setAttribute("data-theme","terminal");</script>
+    <title>Sandboxes</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="../style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <button class="theme-toggle" id="theme-toggle" title="Toggle terminal theme" aria-label="Toggle terminal theme">
+      <span class="toggle-icon-light">&gt;_</span>
+      <span class="toggle-icon-terminal" style="display: none">&#9788;</span>
+    </button>
+    <div class="page">
+      <header class="header">
+        <a href="../" class="back-link">&larr; Home</a>
+        <div class="header__name">Sandboxes</div>
+      </header>
+      <div class="grid" style="grid-template-columns: 1fr; max-width: 600px; margin: 0 auto;">
+        <div class="card">
+          <ul class="links">
+            <li>
+              <a href="https://desecho.github.io/pc/" target="_blank">
+                <img src="../img/it-wont-boot.png" alt="It won't boot" /><span>It won't boot — Diagnose and repair a fragile fictional computer</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://desecho.github.io/break-lab/" target="_blank">
+                <img src="../img/break-lab.png" alt="Break lab" /><span>Break lab — Smash procedural targets in a 3D destruction sandbox</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <script>
+      (function () {
+        var btn = document.getElementById("theme-toggle");
+        var lightIcon = btn.querySelector(".toggle-icon-light");
+        var terminalIcon = btn.querySelector(".toggle-icon-terminal");
+        var saved = localStorage.getItem("theme");
+        if (saved === "terminal") {
+          document.documentElement.setAttribute("data-theme", "terminal");
+          lightIcon.style.display = "none";
+          terminalIcon.style.display = "";
+        }
+        btn.addEventListener("click", function () {
+          var html = document.documentElement;
+          var isTerminal = html.getAttribute("data-theme") === "terminal";
+          if (isTerminal) {
+            html.removeAttribute("data-theme");
+            localStorage.removeItem("theme");
+            lightIcon.style.display = "";
+            terminalIcon.style.display = "none";
+          } else {
+            html.setAttribute("data-theme", "terminal");
+            localStorage.setItem("theme", "terminal");
+            lightIcon.style.display = "none";
+            terminalIcon.style.display = "";
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
